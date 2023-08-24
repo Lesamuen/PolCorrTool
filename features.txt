@@ -1,0 +1,69 @@
+GUI
+ - 3D env
+ - black background for dark mode; all outlines default in white
+ - controls help in bottom left
+ - 2D grid at Y 0; vertical line at XZ 0, 0
+ - grid is separated in 5x5x5 units
+ - WASD to move focal point in XZ plane
+ - Middle mouse drag to rotate camera around focal point
+ - QE to move Y
+ - Scroll to zoom in or out; renders less or more grid
+ - focal point visible as small sphere
+ - hovering mouse over tile highlights it (yellow solid thick outline) at current Y + cube if present
+ - 3 mouse mode buttons top left: select, target, cover
+    - select: left click to select (stay highlighted), right click to deselect
+    - target: left click to add translucent green cube, right click to remove; simulates square being hit
+    - cover: left click to add translucent grey cube, right click to remove; simulates full cover
+ - 6 shape mode buttons along top: none, line, cube, sphere, cone, cylinder
+    - none has 0 size parameters
+    - cone, cube, sphere has 1 size parameter
+    - line, cylinder has 2 size parameters
+    - size parameters are set on right; both always visible, but only some used
+    - shapes are purely bright red outlines
+       - line/cylinder has 4 lines extending from circular bases
+       - cone has 4 lines extended from point to circle
+       - sphere has 3 circles perpendicular
+       - cube is just cube lol
+    - any tiles or targets not behind total cover within shape become transparent purple
+    - point of origin is at focal point of camera, marked by small solid red sphere
+    - IJKL to rotate pitch and yaw (line, cone, cube)
+    - UO to rotate roll (cube) or set direction (cylinder)
+    - TFGH to move point of origin along face (cube)
+  - X to toggle binding focal point to current cube tile; useful for moving point of origin within creature's square
+
+Shape Collision
+ - To detect collision, only center of cube tile is used
+ - Only consider collision of visible points on grid and target points
+ - Raycast from point of origin to all considered points to test collision on cover cubes; throw out blocked points
+ - Points then counter-rotated and counter-translated to compare to base shape with cartesian inequalities, where point of origin at 0, 0, 0
+ - None
+    - no shape selected; don't show point of origin
+ - Line
+    - actually a cylinder pointing from point of origin
+    - length determined by first parameter, diameter determined by second parameter
+    - example: Lightning Bolt is 100 feet long line, 5 feet wide
+    - untransformed has length along positive x axis; 0 <= x <= p1, y^2 + z^2 <= (p2/2)^2
+ - Cube
+    - length of each edge determined by first parameter
+    - point of origin can be moved anywhere along one cube face; default in center
+    - example: Thunderwave is 15-foot cube
+    - untransformed has cube parallel to XZ-plane along positive x axis; 0 <= x <= p1, -yc <= y <= p1 - yc, -xc <= z <= p1 - xc
+       - where xc, yc is point of origin relative to face where 0, 0 is bottom right corner when facing towards positive x (max of xc and yc is p1)
+ - Sphere
+    - radius determined by first parameter
+    - point of origin is center
+    - example: Fireball is 20-foot radius sphere
+    - x^2 + y^2 + z^2 <= p1^2
+ - Cone
+    - "A cone's width at a given point along its length is equal to that point's distance from the point of origin"; that is, both height and diameter determined by first parameter
+    - point of origin is tip
+    - angle is actually about 53.13 deg
+    - example: Burning Hands is 15-foot cone
+    - untransformed has height along positive x axis; 0 <= x <= p1, y^2 + z^2 <= (x/2)^2
+ - Cylinder
+    - height determined by first parameter, radius determined by second parameter
+    - point of origin center of circle base, either top or bottom
+    - example: Moonbeam is 5-foot radius, 40-foot-high cylinder
+    - untransformed always along y-axis, either positive or negative; x^2 + z^2 <= p2^2, 0 <= y <= p1 OR -p1 <= y <= 0
+
+Consider having a toggle for hex-based grid (would still use cartesian coords)
