@@ -29,7 +29,7 @@ GUI
     - IJKL to rotate pitch and yaw (line, cone, cube)
     - UO to rotate roll (cube) or set direction (cylinder)
     - TFGH to move point of origin along face (cube)
-  - X to toggle binding focal point to current cube tile; useful for moving point of origin within creature's square
+ - X to toggle binding focal point to current cube tile; useful for moving point of origin within creature's square
 
 Shape Collision
  - To detect collision, only center of cube tile is used
