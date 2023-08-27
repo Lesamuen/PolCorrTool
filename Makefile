@@ -1,7 +1,7 @@
 # assuming compilation on windows w/ mingw-w64
 
 # files to compile
-FILEIN = main.cpp
+FILEIN = src/main.cpp
 
 # exe name
 FILEOUT = PolCorrTool.exe
