@@ -3,7 +3,7 @@
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
 
-#include <iostream>
+#include <cstdio>
 
 int main(int argc, char **argv)
 {
@@ -11,7 +11,7 @@ int main(int argc, char **argv)
     if (!glfwInit())
     {
         // glfw init failed, get error
-        std::cout << "Failed to init GLFW: " << glfwGetError(NULL) << std::endl;
+        fprintf(stderr, "Failed to init GLFW: %d\n", glfwGetError(NULL));
 
         return 1;
     }
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     if (!window)
     {
         // window creation failed, get error
-        std::cout << "Failed to create window: " << glfwGetError(NULL) << std::endl;
+        fprintf(stderr, "Failed to create window: %d\n", glfwGetError(NULL));
 
         glfwTerminate();
         return 1;
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
     if (glewErr != GLEW_OK)
     {
         // glew init failed, get error
-        std::cout << "Failed to init GLEW: " << glewGetErrorString(glewErr) << std::endl;
+        fprintf(stderr, "Failed to init GLEW: %s\n", glewGetErrorString(glewErr));
 
         glfwTerminate();
         return 1;
