@@ -89,8 +89,20 @@ int main(int argc, char **argv)
     glAttachShader(shaderPrograms[1], shaders[2]);
     glAttachShader(shaderPrograms[1], shaders[3]);
 
-    glLinkProgram(shaderPrograms[0]); // flat 2D shader
-    glLinkProgram(shaderPrograms[1]); // perspective 3D shader
+    for (int i = 0; i < 2; i++)
+    {
+        glLinkProgram(shaderPrograms[i]);
+
+        GLint linked;
+        glGetProgramiv(shaderPrograms[i], GL_LINK_STATUS, &linked);
+
+        fprintf(stdout, "Shader program %d link status: %d\n", i, linked);
+
+        char linkLog[512];
+        glGetProgramInfoLog(shaders[i], 512, NULL, linkLog);
+
+        fprintf(stdout, "Linking log: %s\n", linkLog);
+    }
 
     // event loop
     while (!glfwWindowShouldClose(window))
