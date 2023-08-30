@@ -104,6 +104,17 @@ int main(int argc, char **argv)
         fprintf(stdout, "Linking log: %s\n", linkLog);
     }
 
+    // no need for shaders anymore
+    glDetachShader(shaderPrograms[0], shaders[0]);
+    glDetachShader(shaderPrograms[0], shaders[1]);
+    glDetachShader(shaderPrograms[1], shaders[2]);
+    glDetachShader(shaderPrograms[1], shaders[3]);
+
+    for (int i = 0; i < 4; i++)
+    {
+        glDeleteShader(shaders[i]);
+    }
+
     // event loop
     while (!glfwWindowShouldClose(window))
     {
