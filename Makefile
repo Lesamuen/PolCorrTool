@@ -1,7 +1,7 @@
 # assuming compilation on windows w/ mingw-w64
 
 # files to compile
-FILEIN = src/main.cpp src/shaders.cpp
+FILEIN = src/main.cpp src/shaders.cpp src/glHelper.cpp
 
 # exe name
 FILEOUT = PolCorrTool.exe

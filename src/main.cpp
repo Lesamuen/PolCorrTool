@@ -7,44 +7,17 @@
 #include <GLFW/glfw3.h>
 
 #include "shaders.h"
+#include "glHelper.h"
 
 #include <cstdio>
 
 int main(int argc, char **argv)
 {
-    // init glfw lib
-    if (!glfwInit())
+    // init opengl and window
+    GLFWwindow* window = init();
+    if (window == nullptr)
     {
-        // glfw init failed, get error
-        fprintf(stderr, "Failed to init GLFW: %d\n", glfwGetError(NULL));
-
-        return 1;
-    }
-
-    // window params
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-    // create window context
-    GLFWwindow *window = glfwCreateWindow(1600, 900, "PolCorrTool DEV", nullptr, nullptr);
-    if (!window)
-    {
-        // window creation failed, get error
-        fprintf(stderr, "Failed to create window: %d\n", glfwGetError(NULL));
-
-        glfwTerminate();
-        return 1;
-    }
-    glfwMakeContextCurrent(window);
-
-    // init glew lib
-    glewExperimental = GL_TRUE;
-    GLenum glewErr = glewInit();
-    if (glewErr != GLEW_OK)
-    {
-        // glew init failed, get error
-        fprintf(stderr, "Failed to init GLEW: %s\n", glewGetErrorString(glewErr));
-
-        glfwTerminate();
+        fprintf(stdout, "Window failed to be created; shutting down.");
         return 1;
     }
 
