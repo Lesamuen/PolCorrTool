@@ -35,7 +35,6 @@ GLFWwindow* init()
     glfwMakeContextCurrent(window);
 
     // init glew lib
-    glewExperimental = GL_TRUE;
     GLenum glewErr = glewInit();
     if (glewErr != GLEW_OK)
     {
