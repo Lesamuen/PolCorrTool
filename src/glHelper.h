@@ -1,5 +1,5 @@
-#ifndef GL_H
-#define GL_H
+#ifndef GLHELPER_H
+#define GLHELPER_H
 
 #define GLFW_DLL
 #define GLFW_INCLUDE_NONE
